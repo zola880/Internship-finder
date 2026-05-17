@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const DEFAULT_PROFILE = {
   fullName: "",
   department: "",
+  applicantId: "",
   university: "",
   year: "1",
   experienceLevel: "Beginner",

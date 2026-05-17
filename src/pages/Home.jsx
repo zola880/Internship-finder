@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
-import { ArrowRight, CheckCircle2, Sparkles, Globe, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, Search, Briefcase, FileText, HelpCircle, Building } from "lucide-react";
 import { INTERNSHIPS } from "../data/internships";
 import InternshipCard from "../components/InternshipCard";
 
@@ -18,31 +18,29 @@ const Home = () => {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 rounded-full text-xs font-bold uppercase tracking-widest mb-8 border border-indigo-100 dark:border-indigo-800"
+            className="inline-flex items-center gap-2 px-3 py-1 bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 rounded-md text-xs font-semibold mb-6 border border-zinc-200 dark:border-zinc-700"
           >
-            <Sparkles className="w-4 h-4" />
-            AI-Powered Career Platform
+            <Briefcase className="w-3 h-3" />
+            Student Internship Portal
           </motion.div>
           
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-8 leading-[1.1]"
+            className="text-4xl md:text-6xl font-bold text-zinc-900 dark:text-white tracking-tight mb-6 leading-tight"
           >
-            Find Internship Opportunities <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-violet-500">
-              Easily in Ethiopia
-            </span>
+            Your Next Internship <br />
+            <span className="text-indigo-600">Starts Here.</span>
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-xl text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-12 leading-relaxed"
+            className="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto mb-10"
           >
-            Connecting ambitious Ethiopian students with top-tier companies. Get personalized AI guidance, verified listings, and a seamless application process.
+            A dedicated space for Ethiopian students to discover verified opportunities, get professional advice, and jumpstart their careers.
           </motion.p>
           
           <motion.div
@@ -53,17 +51,16 @@ const Home = () => {
           >
             <Link
               to="/internships"
-              className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg transition-all shadow-xl shadow-indigo-600/20 flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-all flex items-center justify-center gap-2 group"
             >
-              Explore Internships
+              View Openings
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
             <Link
-              to="/ai-assistant"
-              className="w-full sm:w-auto px-8 py-4 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white rounded-2xl font-bold text-lg transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800 flex items-center justify-center gap-2"
+              to="/career-advice"
+              className="w-full sm:w-auto px-6 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white rounded-lg font-semibold transition-all hover:bg-zinc-50 dark:hover:bg-zinc-800 flex items-center justify-center gap-2"
             >
-              <Sparkles className="w-5 h-5 text-indigo-600" />
-              Try AI Assistant
+              Career Guidance
             </Link>
           </motion.div>
         </div>
@@ -72,22 +69,22 @@ const Home = () => {
       {/* How It Works */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4 tracking-tight">How EthioIntern AI Works</h2>
-          <p className="text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto">Your journey to a professional career starts here. Follow these simple steps to land your dream internship.</p>
+          <h2 className="text-3xl font-bold text-zinc-900 dark:text-white mb-4">Platform Overview</h2>
+          <p className="text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto">We've simplified the process of finding internships into four straightforward steps.</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
-            { title: "Browse", desc: "Explore hundreds of verified internship listings across various fields.", icon: Globe },
-            { title: "View Details", desc: "Learn about the company, requirements, and application deadlines.", icon: Zap },
-            { title: "Apply", desc: "Submit your application directly through our streamlined form.", icon: ShieldCheck },
-            { title: "AI Guidance", desc: "Get personalized recommendations and advice from our AI consultant.", icon: Sparkles },
+            { title: "Search", desc: "Filter through verified listings in tech, business, and engineering.", icon: Search },
+            { title: "Review", desc: "Check company requirements, locations, and application deadlines.", icon: Building },
+            { title: "Apply", desc: "Submit your documentation via the official company portals.", icon: FileText },
+            { title: "Get Advice", desc: "Use our resource center for CV tips and interview prep.", icon: HelpCircle },
           ].map((step, i) => (
-            <div key={i} className="relative p-8 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl group hover:border-indigo-500/30 transition-all">
-              <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                <step.icon className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <div key={i} className="p-6 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl transition-all">
+              <div className="w-10 h-10 bg-indigo-50 dark:bg-indigo-900/20 rounded-lg flex items-center justify-center mb-4">
+                <step.icon className="w-5 h-5 text-indigo-600" />
               </div>
-              <h3 className="font-bold text-zinc-900 dark:text-white mb-3">{i + 1}. {step.title}</h3>
+              <h3 className="font-bold text-zinc-900 dark:text-white mb-2">{step.title}</h3>
               <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{step.desc}</p>
             </div>
           ))}
@@ -119,22 +116,15 @@ const Home = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_top_right,_rgba(255,255,255,0.1)_0%,_transparent_50%)]" />
         
         <div className="max-w-4xl mx-auto relative z-10">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 tracking-tight">Why Choose EthioIntern AI?</h2>
+          <h2 className="text-3xl font-bold mb-10 tracking-tight text-center">Platform Features</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
             {[
               "Verified internship listings from trusted companies",
               "Direct links to official company websites",
-              "AI-powered career assistant for personalized advice",
+              "Resource module for CV and interview preparation",
               "Easy and streamlined application process",
               "Bookmark and track your favorite opportunities",
               "Professional student profile management"
-            ].map((feature, i) => (
-              <div key={i} className="flex items-center gap-4 bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
-                <CheckCircle2 className="w-6 h-6 text-indigo-200 flex-shrink-0" />
-                <span className="font-medium">{feature}</span>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </div>

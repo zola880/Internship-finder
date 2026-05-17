@@ -1,13 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import {
-  Sparkles,
   Send,
-  Bot,
+  MessagesSquare,
   User,
   Loader2,
-  BrainCircuit,
-  Lightbulb,
+  Info,
   Target,
   MapPin,
   GraduationCap,
@@ -18,14 +16,14 @@ import {
 import { useProfile } from "../hooks/useProfile";
 import { INTERNSHIPS } from "../data/internships";
 
-const AIAssistant = () => {
+const CareerCoach = () => {
   const { profile } = useProfile();
   const [messages, setMessages] = useState([
     {
       role: "assistant",
-      content: `Hello! I'm your AI Career Assistant. I can help you with internship advice tailored to Ethiopian students. Based on your profile, I can provide personalized guidance for your career journey.
+      content: `Hello! I'm your Career Coach. I can help you with internship advice tailored to students in Ethiopia. 
 
-What would you like to know about internships in Ethiopia?`,
+Select a topic below or ask a question about CVs, interviews, or companies.`,
       timestamp: new Date()
     }
   ]);
@@ -189,15 +187,15 @@ What would you like to know about internships in Ethiopia?`,
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 h-[calc(100vh-64px)] flex flex-col">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-white tracking-tight flex items-center gap-3">
-            <BrainCircuit className="w-8 h-8 text-indigo-600" />
-            AI Career Assistant
+          <h1 className="text-2xl font-bold text-zinc-900 dark:text-white flex items-center gap-3">
+            <MessagesSquare className="w-6 h-6 text-indigo-600" />
+            Career Coach
           </h1>
-          <p className="text-zinc-600 dark:text-zinc-400 mt-1">Get personalized guidance for internships in Ethiopia</p>
+          <p className="text-sm text-zinc-500 mt-1">Professional resources for Ethiopian students</p>
         </div>
       </div>
 
-      <div className="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-[2rem] overflow-hidden flex flex-col shadow-sm relative">
+      <div className="flex-1 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl overflow-hidden flex flex-col shadow-sm relative">
         {/* Chat Messages */}
         <div
           ref={scrollRef}
@@ -205,13 +203,13 @@ What would you like to know about internships in Ethiopia?`,
         >
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center max-w-md mx-auto space-y-8">
-              <div className="w-20 h-20 bg-indigo-50 dark:bg-indigo-900/20 rounded-3xl flex items-center justify-center border border-indigo-100 dark:border-indigo-800">
-                <Bot className="w-10 h-10 text-indigo-600" />
+              <div className="w-16 h-16 bg-zinc-100 dark:bg-zinc-800 rounded-full flex items-center justify-center">
+                <Info className="w-8 h-8 text-indigo-600" />
               </div>
               <div className="space-y-4">
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-white">Ready to help you grow</h3>
+                <h3 className="text-lg font-bold text-zinc-900 dark:text-white">Career Knowledge Base</h3>
                 <p className="text-zinc-500 dark:text-zinc-400">
-                  Ask me anything about internships and career guidance in Ethiopia!
+                  Get instant answers regarding the internship landscape in Ethiopia.
                 </p>
               </div>
               <div className="grid grid-cols-1 gap-3 w-full">
@@ -221,7 +219,7 @@ What would you like to know about internships in Ethiopia?`,
                     onClick={() => setInput(item.text)}
                     className="flex items-center gap-3 p-4 bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 rounded-2xl text-sm text-zinc-600 dark:text-zinc-400 hover:border-indigo-500/30 transition-all text-left"
                   >
-                    <item.icon className="w-4 h-4 text-indigo-600" />
+                    <item.icon className="w-4 h-4 text-zinc-400" />
                     {item.text}
                   </button>
                 ))}
@@ -238,14 +236,14 @@ What would you like to know about internships in Ethiopia?`,
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border ${
                   msg.role === "user"
                     ? "bg-zinc-100 dark:bg-zinc-800 border-zinc-200 dark:border-zinc-700"
-                    : "bg-indigo-600/10 border-indigo-500/20"
+                    : "bg-indigo-50 dark:bg-indigo-900/20 border-indigo-100"
                 }`}>
-                  {msg.role === "user" ? <User className="w-5 h-5 text-zinc-500" /> : <Bot className="w-5 h-5 text-indigo-600" />}
+                  {msg.role === "user" ? <User className="w-5 h-5 text-zinc-500" /> : <MessagesSquare className="w-5 h-5 text-indigo-600" />}
                 </div>
-                <div className={`max-w-[80%] px-5 py-4 rounded-2xl leading-relaxed text-[15px] ${
+                <div className={`max-w-[80%] px-5 py-3 rounded-xl leading-relaxed text-[15px] ${
                   msg.role === "user"
-                    ? "bg-indigo-600 text-white"
-                    : "bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-100 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200"
+                    ? "bg-indigo-600 text-white rounded-tr-none"
+                    : "bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-800 text-zinc-800 dark:text-zinc-200 rounded-tl-none"
                 }`}>
                   <div className="whitespace-pre-wrap">{msg.content}</div>
                 </div>
@@ -293,5 +291,3 @@ What would you like to know about internships in Ethiopia?`,
 };
 
 export default AIAssistant;
-
-

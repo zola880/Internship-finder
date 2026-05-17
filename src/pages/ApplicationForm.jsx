@@ -23,7 +23,7 @@ const AnnouncementForm = () => {
   const [formData, setFormData] = useState({
     fullName: profile.fullName || "",
     department: profile.department || "",
-    university: profile.university || "",
+    applicantId: profile.applicantId || "",
     year: profile.year || "1",
     bankAccount: profile.bankAccount || "",
   });
@@ -37,21 +37,43 @@ const AnnouncementForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Update profile with form data for future use
-    updateProfile({
-      fullName: formData.fullName,
-      department: formData.department,
-      university: formData.university,
-      year: formData.year,
-      bankAccount: formData.bankAccount,
-    });
 
-    setIsSubmitting(false);
-    setIsSuccess(true);
+    try {
+      const payload = new FormData();
+      payload.append("fullName", formData.fullName);
+      payload.append("applicantId", formData.applicantId);
+      payload.append("department", formData.department);
+      payload.append("year", formData.year);
+      payload.append("bankAccount", formData.bankAccount);
+      payload.append("internshipId", internship?.id || "");
+      if (file) payload.append("document", file);
+
+      const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000";
+      const response = await fetch(`${API_URL}/api/applications`, {
+        method: "POST",
+        body: payload,
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || "Failed to submit application");
+      }
+
+      updateProfile({
+        fullName: formData.fullName,
+        department: formData.department,
+        applicantId: formData.applicantId,
+        year: formData.year,
+        bankAccount: formData.bankAccount,
+      });
+
+      setIsSuccess(true);
+    } catch (error) {
+      console.error("Application submit failed:", error);
+      alert(`Submission failed: ${error.message}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSuccess) {
@@ -66,7 +88,7 @@ const AnnouncementForm = () => {
         </motion.div>
         <h1 className="text-4xl font-extrabold text-zinc-900 dark:text-white mb-4 tracking-tight">Announcement Sent!</h1>
         <p className="text-zinc-600 dark:text-zinc-400 text-lg mb-12 leading-relaxed">
-          Your university has been successfully notified that you secured an internship at <span className="font-bold text-indigo-600">{internship.companyName}</span>. Your stipend processing will begin shortly.
+          Your applicant ID has been successfully submitted for {internship.companyName}. Your stipend processing will begin shortly.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/internships" className="px-8 py-4 bg-indigo-600 text-white rounded-2xl font-bold transition-all shadow-lg shadow-indigo-600/20">
@@ -113,14 +135,14 @@ const AnnouncementForm = () => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">University Name</label>
+              <label className="text-sm font-bold text-zinc-700 dark:text-zinc-300">Applicant ID</label>
               <input
                 required
                 type="text"
-                value={formData.university}
-                onChange={(e) => setFormData({ ...formData, university: e.target.value })}
+                value={formData.applicantId}
+                onChange={(e) => setFormData({ ...formData, applicantId: e.target.value })}
                 className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl py-3 px-4 focus:outline-none focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all text-zinc-900 dark:text-white"
-                placeholder="e.g. Addis Ababa University"
+                placeholder="e.g. BDU*******"
               />
             </div>
             <div className="space-y-2">
